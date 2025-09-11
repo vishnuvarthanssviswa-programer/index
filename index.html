@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Empowering Students — Portal</title>
+  <style>
+    :root{--accent:#0b74de;--muted:#6b7280;--bg:#f7f9fb;--card:#fff}
+    *{box-sizing:border-box}
+    body{font-family:Inter,Segoe UI,Arial;background:var(--bg);margin:0;color:#0f1724}
+    header{background:linear-gradient(90deg,#ffffffcc, #f0f6ff);backdrop-filter: blur(4px);border-bottom:1px solid #e6eefc}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{width:48px;height:48px;background:#eee;border-radius:8px}
+    nav{display:flex;gap:14px;align-items:center;margin-left:auto}
+    .nav-item{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px}
+    .nav-item:hover{background:#eef6ff;color:var(--accent)}
+    .topbar{display:flex;align-items:center}
+    .cta{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;text-decoration:none}
+
+    /* Hero */
+    .hero{padding:36px 0;display:flex;gap:20px;align-items:center}
+    .hero .left{flex:1}
+    h1{font-size:28px;margin:0 0 8px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+    .buttons{display:flex;gap:10px}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(12,34,80,0.04);border:1px solid rgba(11,116,222,0.04)}
+    .card h3{margin:0 0 8px;font-size:16px}
+    .small{color:var(--muted);font-size:13px}
+
+    /* Forms */
+    form{display:flex;flex-direction:column;gap:10px}
+    input,select,button{padding:10px;border-radius:8px;border:1px solid #e6eefc}
+    input:focus{outline:none;box-shadow:0 0 0 3px rgba(11,116,222,0.08)}
+    .row{display:flex;gap:8px}
+
+    /* Footer */
+    footer{padding:20px 0;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.topbar{flex-wrap:wrap}}
+    @media (max-width:600px){.grid{grid-template-columns:1fr}.hero{flex-direction:column}.nav-item{display:none}.brand{gap:8px}}
+
+    /* Floating chat */
+    .chat-btn{position:fixed;right:18px;bottom:18px;background:var(--accent);color:white;padding:12px;border-radius:999px;border:none;box-shadow:0 6px 20px rgba(11,116,222,0.2);cursor:pointer}
+    .chat-window{position:fixed;right:18px;bottom:78px;width:320px;background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(2,6,23,0.12);overflow:hidden;display:none}
+    .chat-window header{background:#f5faff;padding:10px;border-bottom:1px solid #eef6ff}
+    .chat-body{padding:12px;height:220px;overflow:auto}
+    .chat-input{display:flex;padding:10px;border-top:1px solid #eee}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef6ff;color:var(--accent);font-size:13px;margin:6px 6px 0 0}
+
+    /* Tiny analytics */
+    .spark{height:64px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <img alt="logo" srcdata=""/>
+        <div>
+          <strong>Empowering Students</strong>
+          <div style="font-size:12px;color:var(--muted)">A unified platform for HEIs — Jammu & Kashmir</div>
+        </div>
+      </div>
+      <nav>
+        <a class="nav-item" href="#home">Home</a>
+        <a class="nav-item" href="#about">About</a>
+        <a class="nav-item" href="#services">Services</a>
+        <a class="nav-item" href="#dashboard">Student Dashboard</a>
+        <a class="nav-item" href="#faculty">Faculty Portal</a>
+        <a class="nav-item" href="#help">Help</a>
+        <a class="cta" href="#register">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="home">
+      <div class="left">
+        <h1>Elevating Education — Track, validate and celebrate student achievements</h1>
+        <p class="lead">A secure, scalable digital platform to manage academic, co‑curricular, and extracurricular records across Higher Education Institutions.</p>
+        <div class="buttons">
+          <a class="cta" href="#student-login">Student Login</a>
+          <a class="nav-item" href="#faculty-login">Faculty Login</a>
+        </div>
+        <div style="margin-top:16px">
+          <span class="chip">Real-time notifications</span>
+          <span class="chip">Dashboard analytics</span>
+          <span class="chip">Document verification</span>
+        </div>
+      </div>
+      <div style="flex:0 0 360px">
+        <div class="card">
+          <h3>Quick Login</h3>
+          <form id="quickLogin">
+            <input id="sid" placeholder="Student ID *" required pattern="\d+" />
+            <input id="spass" placeholder="Password" type="password" required />
+            <div class="row">
+              <input id="scaptcha" placeholder="Enter 3-digit code" required />
+              <button type="button" id="refreshCaptcha">↻</button>
+            </div>
+            <button class="cta" type="submit">Submit</button>
+            <div id="loginMsg" style="font-size:13px;color:var(--muted);margin-top:8px"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" style="margin-top:18px">
+      <div class="grid">
+        <div class="card">
+          <h3>Student Activity Tracker</h3>
+          <div class="small">Track academics, events, awards and uploads in one timeline.</div>
+        </div>
+        <div class="card">
+          <h3>Faculty Validation Portal</h3>
+          <div class="small">Approve student submissions and provide feedback.</div>
+        </div>
+        <div class="card">
+          <h3>Analytics Dashboard</h3>
+          <div class="small">Visualize engagement & performance trends.</div>
+        </div>
+        <div class="card">
+          <h3>Document Verification</h3>
+          <div class="small">Secure uploads with verification workflow.</div>
+        </div>
+        <div class="card">
+          <h3>Event & Deadline Alerts</h3>
+          <div class="small">Stay informed about upcoming actions.</div>
+        </div>
+        <div class="card">
+          <h3>Reports & Export</h3>
+          <div class="small">Downloadable institution and student reports.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" style="margin-top:22px">
+      <h2>Sample Student Dashboard</h2>
+      <div class="grid" style="margin-top:12px">
+        <div class="card">
+          <h3>Performance</h3>
+          <div class="small">GPA trend (past 6 semesters)</div>
+          <canvas id="spark1" class="spark"></canvas>
+        </div>
+        <div class="card">
+          <h3>Recent Activities</h3>
+          <ul id="activityList" style="padding-left:18px;margin:8px 0"></ul>
+        </div>
+        <div class="card">
+          <h3>Documents</h3>
+          <div class="small">Uploaded: 6 documents</div>
+          <button id="uploadBtn">Upload new</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="faculty" style="margin-top:22px">
+      <h2>Faculty Portal — Quick Approvals</h2>
+      <div class="card" style="margin-top:12px">
+        <form id="facultyForm">
+          <div class="row">
+            <input id="fid" placeholder="Faculty ID *" required />
+            <input id="fpass" placeholder="Password *" type="password" required />
+          </div>
+          <button type="submit">Login</button>
+          <div id="facultyMsg" class="small" style="margin-top:8px"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="help" style="margin-top:22px">
+      <h2>Help & Support</h2>
+      <div class="grid" style="margin-top:12px">
+        <div class="card"><h3>Getting Started</h3><div class="small">Quick guide for students & faculty.</div></div>
+        <div class="card"><h3>FAQs</h3><div class="small">Common questions answered.</div></div>
+        <div class="card"><h3>Live Chat</h3><div class="small">Real-time assistance during working hours.</div></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <strong>Government of Jammu & Kashmir</strong>
+        <div class="small">Built for educational institutions — Smart India Hackathon project</div>
+      </div>
+      <div class="small">© 2025 — All rights reserved</div>
+    </div>
+  </footer>
+
+  <button class="chat-btn" id="openChat">Chat</button>
+  <div class="chat-window" id="chatWindow">
+    <header>Support Chat</header>
+    <div class="chat-body" id="chatBody">
+      <div class="small">Hello! Type a message and we'll respond shortly.</div>
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" placeholder="Type message..." style="flex:1;border:none;outline:none" />
+      <button id="sendChat">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Simple client-side JS to make the demo interactive
+    (function(){
+      // captcha generator
+      function genCaptcha(){return Math.floor(100+Math.random()*900)}
+      let currentCaptcha = genCaptcha();
+      const sc = document.getElementById('scaptcha');
+      const refresh = document.getElementById('refreshCaptcha');
+      const loginMsg = document.getElementById('loginMsg');
+      function showCaptcha(){ sc.placeholder = 'Enter code: '+ currentCaptcha }
+      showCaptcha();
+      refresh.addEventListener('click', ()=>{ currentCaptcha=genCaptcha(); showCaptcha(); });
+
+      document.getElementById('quickLogin').addEventListener('submit', function(e){
+        e.preventDefault();
+        const sid = document.getElementById('sid').value.trim();
+        const pass = document.getElementById('spass').value.trim();
+        const entered = document.getElementById('scaptcha').value.trim();
+        if(!/^[0-9]+$/.test(sid)){ loginMsg.textContent='Student ID must be numeric.';return }
+        if(entered!==String(currentCaptcha)){ loginMsg.textContent='Captcha is incorrect. Click refresh if needed.';return }
+        // fake authentication for demo
+        loginMsg.style.color='green'; loginMsg.textContent='Login successful — loading dashboard...';
+        setTimeout(()=>{ loginMsg.textContent=''; loadDemoData(); },700);
+      });
+
+      // faculty login
+      document.getElementById('facultyForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const fid = document.getElementById('fid').value.trim();
+        if(!fid){ document.getElementById('facultyMsg').textContent='Enter faculty ID'; return }
+        document.getElementById('facultyMsg').style.color='green';
+        document.getElementById('facultyMsg').textContent='Welcome back — you have 3 pending approvals.';
+      });
+
+      // chat widget
+      const openChat = document.getElementById('openChat');
+      const chatWindow = document.getElementById('chatWindow');
+      const sendChat = document.getElementById('sendChat');
+      const chatBody = document.getElementById('chatBody');
+      openChat.addEventListener('click', ()=>{ chatWindow.style.display = chatWindow.style.display==='block'?'none':'block' });
+      sendChat.addEventListener('click', ()=>{ const v=document.getElementById('chatInput').value.trim(); if(!v)return; const p = document.createElement('div'); p.textContent='You: '+v; p.style.margin='6px 0'; p.style.fontSize='13px'; chatBody.appendChild(p); document.getElementById('chatInput').value=''; setTimeout(()=>{ const r=document.createElement('div'); r.textContent='Support: Thanks — we will get back soon.'; r.style.margin='6px 0'; r.style.fontSize='13px'; r.style.color='var(--muted)'; chatBody.appendChild(r); chatBody.scrollTop = chatBody.scrollHeight; },700) });
+
+      // demo activity list & upload
+      const activityList = document.getElementById('activityList');
+      const demoActivities = ['Won inter-college coding contest','Uploaded Internship certificate','Attended workshop on IoT','Secured 1st in Hackathon'];
+      function loadDemoData(){ activityList.innerHTML=''; demoActivities.forEach(a=>{ const li=document.createElement('li'); li.textContent=a; activityList.appendChild(li) }); drawSpark([7.2,7.5,7.8,8.0,8.1,8.4]); }
+      document.getElementById('uploadBtn').addEventListener('click', ()=>{ alert('This is a demo — implement file upload on the server to store documents.'); });
+
+      // tiny sparkline chart
+      function drawSpark(data){ const c = document.getElementById('spark1'); const ctx = c.getContext('2d'); c.width = c.clientWidth; c.height = c.clientHeight; ctx.clearRect(0,0,c.width,c.height); ctx.beginPath(); const max=Math.max(...data); const min=Math.min(...data); data.forEach((v,i)=>{ const x = i*(c.width/(data.length-1)); const y = c.height - ((v-min)/(max-min||1))*c.height; if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }); ctx.strokeStyle='rgba(11,116,222,0.9)'; ctx.lineWidth=2; ctx.stroke(); ctx.fillStyle='rgba(11,116,222,0.06)'; ctx.lineTo(c.width,c.height); ctx.lineTo(0,c.height); ctx.closePath(); ctx.fill(); }
+
+      // draw on resize
+      window.addEventListener('resize', ()=>{ if(activityList.children.length) drawSpark([7.2,7.5,7.8,8.0,8.1,8.4]); });
+
+      // initial
+      loadDemoData();
+
+      // small accessibility: allow Enter to send chat
+      document.getElementById('chatInput').addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); sendChat.click() } });
+
+      // simple keyboard shortcut: press L to focus student id
+      document.addEventListener('keydown', function(e){ if(e.key.toLowerCase()==='l'){ document.getElementById('sid').focus(); } });
+    })();
+  </script>
+</body>
+</html>
